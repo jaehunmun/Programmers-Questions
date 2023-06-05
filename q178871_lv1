@@ -1,0 +1,28 @@
+players = ["mumu", "soe", "poe", "kai", "mine"]
+callings = ["kai", "kai", "mine", "mine"]
+
+
+# ["mumu", "kai", "mine", "soe", "poe"]
+
+def solution(players, callings):
+    dict_player = {}
+    dict_rank = {}
+
+    for idx, key in enumerate(players):
+        dict_player[key] = idx
+        dict_rank[idx] = key
+
+    for call in callings:
+        idx_c = dict_player[call]
+
+        dict_player[call] = idx_c - 1
+        dict_player[dict_rank[idx_c - 1]] = idx_c
+
+        dict_rank[idx_c] = dict_rank[idx_c - 1]
+        dict_rank[idx_c -1] = call
+
+    return list(dict_rank.values())
+
+
+
+print(solution(players, callings))
