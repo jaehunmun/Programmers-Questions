@@ -1,0 +1,29 @@
+park = ["SOO", "OOO", "OOO"]
+routes = ["E 2", "S 2", "W 1"]
+
+def solution(park, routes):
+    start = [0,0]
+    for i in range(len(park)):
+        for j in range(len(park[i])):
+            if park[i][j] == 'S':
+                start = [i,j]
+                break
+
+    d = {"W":[0,-1],"E":[0,1],"N":[-1,0],"S":[1,0]}
+    for route in routes:
+        a,b = route.split()
+        ni, nj = start
+        flag = True
+        for _ in range(int(b)):
+            ni += d[a][0]
+            nj += d[a][1]
+            if ni < 0 or nj < 0 or ni >= len(park) or nj >= len(park[0]) or park[ni][nj] == "X":
+                flag = False
+                break
+
+        if flag:
+            start = [ni, nj]
+
+    return start
+
+print(solution(park, routes))
